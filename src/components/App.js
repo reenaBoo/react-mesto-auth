@@ -12,8 +12,11 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import Register from "./Register";
 import ProtectedRoute from "./ProtectedRoute";
 import InfoTooltip from "./InfoTooltip";
+import { apiAuth } from "../utils/ApiAuth";
+import Login from "./Login";
 
 function App() {
+  const history = useHistory();
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -21,6 +24,9 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+  const [mesError, setMesError] = useState(false);
+  const [userAuth, setUserAuth] = useState({});
 
   useEffect(() => {
     api
@@ -61,6 +67,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setSelectedCard({});
+    setIsInfoTooltipPopupOpen('');
   }
 
   function handlePopupClose(evt) {
@@ -122,18 +129,85 @@ function App() {
       .catch((rej) => console.log(rej))
   }
 
-  function handleRegister() {
-
+  function handleRegister({ password, email }) {
+    apiAuth
+        .register({
+          password: password,
+          email: email,
+        })
+        .then(() => {
+          setIsInfoTooltipPopupOpen(true)
+          setMesError(false)
+          history.push('/sign-in')
+        })
+        .catch(() => {
+          setIsInfoTooltipPopupOpen(true)
+          setMesError(true)
+        })
   }
 
-  function handleLogin() {
+  function handleLogin({ password, email }) {
+    apiAuth
+        .login({
+          password,
+          email,
+        })
+        .then((res) => {
+          if (res.token) {
+            localStorage.setItem('token', res.token)
+            checkToken(res.token)
+          }
+        })
+        .catch(() => {
+          setMesError(true)
+          // setIsInfoTooltipPopupOpen(true)
+        })
+  }
 
+  function auth(id, email) {
+    setLoggedIn(true)
+    setUserAuth({
+      id,
+      email,
+    })
+  }
+
+  function checkToken(localToken) {
+    apiAuth
+        .checkToken(localToken)
+        .then((res) => {
+          auth(res.data._id, res.data.email)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+  }
+
+  useEffect(() => {
+    loggedIn ? history.push('/') : history.push('/sign-in')
+  }, [loggedIn])
+
+  // ПРОВЕРКА ПОЛЬЗОВАТЕЛЯ ПРИ ВХОДЕ
+  useEffect(() => {
+    const localToken = localStorage.getItem('token')
+    localToken ? checkToken(localToken) : history.push('/sign-in')
+  }, [])
+
+  // ВЫХОД ПОЛЬЗОВАТЕЛЯ
+  function handleSignOutButtonClick() {
+    exit()
+  }
+  function exit() {
+    localStorage.removeItem('token')
+    setLoggedIn(false)
+    setUserAuth({})
   }
 
   return (
     <div className="page__container">
       <CurrentUserContext.Provider value={currentUser}>
-        <InfoTooltip isOpen={}/>
+        <Header handleLogout={handleSignOutButtonClick} userAuth={userAuth}/>
+        <InfoTooltip isOpen={isInfoTooltipPopupOpen} error={mesError} onClose={handlePopupClose}/>
         <Switch>
           <Route path="/sign-up">
             <Register onSubmit={handleRegister} />
@@ -155,8 +229,6 @@ function App() {
               onCardDelete={handleCardDelete}
           />
         </Switch>
-        <Header />
-        <Main cards={cards} onCardLike={handleCardLike} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} onCardDelete={handleCardDelete} />
         <Footer />
 
         <ImagePopup card={selectedCard} onClose={handlePopupClose} />

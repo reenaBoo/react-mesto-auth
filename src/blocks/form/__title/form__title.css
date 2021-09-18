@@ -6,6 +6,12 @@
   margin: 0 0 54px 0;
 }
 
+.form .form__title {
+  color: #FFFFFF;
+  margin: auto;
+  margin-bottom: 50px;
+}
+
 @media screen and (max-width: 560px) {
   .form__title {
     font-size: 18px;

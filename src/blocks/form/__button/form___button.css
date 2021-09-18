@@ -15,7 +15,7 @@
     cursor: pointer;
 }
 
-.form__save-button:hover {
+.form__button:hover {
     opacity: .85;
 }
 

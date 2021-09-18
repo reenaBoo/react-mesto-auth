@@ -15,13 +15,13 @@ function Register({onSubmit}) {
 
     function handleSubmit(evt) {
         evt.preventDefault();
-        onChange({
+        onSubmit({
             email,
             password
         })
     }
 
-    return {
+    return (
         <form className="form" onSubmit={handleSubmit}>
             <h3 className="form__title">Регистрация</h3>
             <input className="form__input" type="email" placeholder="Email" required value={email || ''} onChange={handleChangeEmail}/>
@@ -29,9 +29,9 @@ function Register({onSubmit}) {
             <button className="form__button">Зарегистрироваться</button>
             <div className="form__text-container">
                 <p className="form__caption">Уже зарегистрированы?</p>
-                <Link to="/sign-up" className="form__caption">Войти</Link>
+                <Link to="/sign-in" className="form__caption form__caption-hover"> &#8194; Войти</Link>
             </div>
         </form>
-    }
+    )
 }
 export default Register;
