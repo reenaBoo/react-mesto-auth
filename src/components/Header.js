@@ -1,12 +1,11 @@
 import React from 'react';
-import logo from '../logo.svg';
 import {Link, Route, Switch} from "react-router-dom";
 
 function Header({userAuth, handleLogout}) {
   return (
       <header className="header">
-        <a href={logo} className="header__logo" target="_self"></a>
-        <div className="header__auth">
+          <Link to='/' className="header__logo"></Link>
+          <div className="header__auth">
             <Switch>
                 <Route exact path="/">
                     <p className="header__style">{userAuth.email}&#8194; | &#8194;</p>

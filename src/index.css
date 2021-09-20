@@ -52,8 +52,15 @@
 @import url(./blocks/form/__button/form___button.css);
 @import url(./blocks/form/__save-button/form__save-button.css);
 @import url(./blocks/form/__save-button/_disabled/form__save-button_disabled.css);
-@import url(./blocks/form/__caption/form__caption.css);
-@import url(blocks/form/__caption-hover/form__caption-hover.css);
+/* form-auth */
+@import url(./blocks/form-auth/form-auth.css);
+@import url(./blocks/form-auth/__caption/form-auth__caption.css);
+@import url(./blocks/form-auth/__button/form-auth__button.css);
+@import url(./blocks/form-auth/__input/form-auth__input.css);
+@import url(./blocks/form-auth/__caption-hover/form-auth__caption-hover.css);
+@import url(./blocks/form-auth/__text-container/form-auth__text-container.css);
+@import url(./blocks/form-auth/__title/form-auth__title.css);
+
 /* popup-image */
 @import url(./blocks/popup/__container-image/popup__container-image.css);
 @import url(./blocks/figure/figure.css);

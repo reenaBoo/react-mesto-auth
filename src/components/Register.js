@@ -22,14 +22,14 @@ function Register({onSubmit}) {
     }
 
     return (
-        <form className="form" onSubmit={handleSubmit}>
-            <h3 className="form__title">Регистрация</h3>
-            <input className="form__input" type="email" placeholder="Email" required value={email || ''} onChange={handleChangeEmail}/>
-            <input className="form__input" type="text" placeholder="Пароль" required  value={password || ''} onChange={handleChangePassword}/>
-            <button className="form__button">Зарегистрироваться</button>
-            <div className="form__text-container">
-                <p className="form__caption">Уже зарегистрированы?</p>
-                <Link to="/sign-in" className="form__caption form__caption-hover"> &#8194; Войти</Link>
+        <form className="form-auth" onSubmit={handleSubmit}>
+            <h3 className="form-auth__title">Регистрация</h3>
+            <input className="form-auth__input" type="email" placeholder="Email" required value={email || ''} onChange={handleChangeEmail}/>
+            <input className="form-auth__input" type="text" placeholder="Пароль" required  value={password || ''} onChange={handleChangePassword}/>
+            <button className="form-auth__button">Зарегистрироваться</button>
+            <div className="form-auth__text-container">
+                <p className="form-auth__caption">Уже зарегистрированы?</p>
+                <Link to="/sign-in" className="form-auth__caption form-auth__caption-hover"> &#8194; Войти</Link>
             </div>
         </form>
     )

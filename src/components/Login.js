@@ -21,11 +21,11 @@ function Login({onSubmit}) {
     }
 
     return (
-        <form className="form" onSubmit={handleSubmit}>
-            <h3 className="form__title">Вход</h3>
-            <input className="form__input" type="email" placeholder="Email" required value={email || ''} onChange={handleChangeEmail}/>
-            <input className="form__input" type="text" placeholder="Пароль" required  value={password || ''} onChange={handleChangePassword}/>
-            <button className="form__button">Войти</button>
+        <form className="form-auth" onSubmit={handleSubmit}>
+            <h3 className="form-auth__title">Вход</h3>
+            <input className="form-auth__input" type="email" placeholder="Email" required value={email || ''} onChange={handleChangeEmail}/>
+            <input className="form-auth__input" type="text" placeholder="Пароль" required  value={password || ''} onChange={handleChangePassword}/>
+            <button className="form-auth__button">Войти</button>
         </form>
     )
 }

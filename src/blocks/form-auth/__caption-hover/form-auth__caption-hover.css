@@ -1,4 +1,4 @@
-.form__caption-hover:hover {
+.form-auth__caption-hover:hover {
     cursor: pointer;
     opacity: 0.6;
 }
